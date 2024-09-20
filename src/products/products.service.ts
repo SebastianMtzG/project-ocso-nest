@@ -31,6 +31,7 @@ export class ProductsService {
 ]
 
 create(CreateProductDto: CreateProductDto){
+  if(CreateProductDto.productId) CreateProductDto.productId = uuid()
   CreateProductDto.productId = uuid()
   this.products.push(CreateProductDto)
   return CreateProductDto;
@@ -50,8 +51,15 @@ create(CreateProductDto: CreateProductDto){
     return productFound;  }
 
   update(id: string, updateProductDto: UpdateProductDto) {
+
     let product = this.findOne(id); // Encuentra el producto por su ID.
-  product = { ...product, ...updateProductDto }; // Combina el producto existente con los nuevos valores.
+    this.products = this.products.map((product) =>{
+      if(product.productId === id) return{
+        ...product,
+        ...updateProductDto
+      }
+      return product;
+    })
   return product;
   }
 
