@@ -31,7 +31,7 @@ return employee
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
     const employeeToUpdate = await this.employeeRepository.preload({
-      employeeId: id
+      employeeId: id,
       ...updateEmployeeDto
     })
    

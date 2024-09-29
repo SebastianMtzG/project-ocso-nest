@@ -13,4 +13,9 @@ lastname: string;
 phonenumber: string;
 @Column({type:"text"})
 email: string;
+@Column({
+    type :"text",
+    nullable: true
+})
+photoUrl: string
 }

@@ -35,7 +35,12 @@ create(CreateProductDto: CreateProductDto){
   findByProvider(id:string){
    // const productFound = this.products.filter(product => product.provider === id);
     //if (productFound.length === 0) throw new NotFoundException();
-    return 'Ok';  }
+   return  this.productRepository.findBy({
+      provider: {
+        providerId: id,
+      }
+    })
+     }
 
     async update(id: string, updateProductDto: UpdateProductDto) {
       const productToUpdate = await this.productRepository.preload({
