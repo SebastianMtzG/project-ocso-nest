@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Manager {
@@ -12,6 +12,9 @@ export class Manager {
         managerEmail: string;
         @Column('text')
         managerPhotoNumber: string;
-        
+
+
+        @OneToOne(() => Location)
+        location: Location
     
 }
