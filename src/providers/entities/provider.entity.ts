@@ -5,7 +5,9 @@ import { Product } from "src/products/entities/product.entity";
 export class Provider {
 @PrimaryGeneratedColumn('uuid')
 providerId: string;
-@Column ('text')
+@Column ('text', {
+    unique:true,
+})
 providerName : string;
 @Column ('text')
 providerEmail : string;

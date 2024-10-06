@@ -1,11 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Manager } from 'src/managers/entities/manager.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   userId: string;
 
-  @Column('text')
+  @Column('text', {
+    unique: true,
+  })
   userEmail: string;
 
   @Column('text')
@@ -15,4 +19,10 @@ export class User {
     default: "Employee"
   })
   userRoles : string[];
+
+  @OneToOne(() => Manager)
+  manager: Manager
+
+  @OneToOne(() => Employee)
+employee: Employee
 }

@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne
 import { Manager } from 'src/managers/entities/manager.entity';
 import { Region } from 'src/regions/entities/region.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
+import { IsObject } from 'class-validator';
 
 @Entity()
 export class Location {
@@ -17,7 +18,9 @@ export class Location {
   @Column('simple-array')
   locationLatLng: number[];
 
-  @OneToOne(() =>  Manager)
+  @OneToOne(() =>  Manager, {
+    eager : true,
+  })
   @JoinColumn({
     name: "managerId"
   }
@@ -29,10 +32,14 @@ export class Location {
       name: "regionId"
     })
   
-  region: Region;
+
 
   @OneToMany(() => Employee, (employee) => employee.location)
   employees: Employee[]
+
+  @IsObject()
+  @IsObject()
+  region:  Region
 
 }
 
