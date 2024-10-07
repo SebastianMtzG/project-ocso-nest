@@ -4,9 +4,11 @@ import { CreateManagerDto } from './dto/create-manager.dto';
 import { UpdateManagerDto } from './dto/update-manager.dto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { ApiAuth } from 'src/auth/decorators/api.decorators';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @ApiAuth()
+@ApiTags('Managers')
 
 @Controller('managers')
 export class ManagersController {

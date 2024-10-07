@@ -6,8 +6,11 @@ import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
 import { ApiAuth } from 'src/auth/decorators/api.decorators';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiAuth()
+@ApiTags('Regions')
+
 @Controller('regions')
 export class RegionsController {
   constructor(private readonly regionsService: RegionsService) {}

@@ -19,18 +19,18 @@ employeeEmail: string;
     type :"text",
     nullable: true
 })
-employeePhoto: string
+employeePhoto?: string
 
 @ManyToOne(() => Location, (location) => location.employees)
 @JoinColumn({
     name: "locationId"
 })
-location:Location
+location?:Location
 
 @OneToOne(() => User )
 @JoinColumn({
     name: "userId"
 })
 
-user: User
+user?: User
 }

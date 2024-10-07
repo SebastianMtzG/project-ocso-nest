@@ -7,11 +7,13 @@ import { Express } from 'express';
 import { Multer } from 'multer';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { ROLES } from 'src/auth/constants/roles.constants';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Employee } from './entities/employee.entity';
 import { ApiAuth } from 'src/auth/decorators/api.decorators';
 
+
 @ApiAuth()
+@ApiTags('Employees')
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
@@ -25,7 +27,7 @@ export class EmployeesController {
     employeeName: "Sebas",
     employeeEmail: "sebas@gmail",
     employeeLastname: "Martinez",
-    employeePhoneNumber:"444543333"
+    employeePhonenumber:"444543333"
   } as Employee
 })
 
