@@ -5,7 +5,7 @@ import { User } from 'src/auth/entities/user.entity';
 
 @Entity()
 export class Employee {
- @PrimaryGeneratedColumn("uuid")
+@PrimaryGeneratedColumn("uuid")
 employeeId: string;
 @Column({type: "text"})
 employeeName: string;

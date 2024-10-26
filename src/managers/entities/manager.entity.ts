@@ -4,7 +4,7 @@ import { User } from "src/auth/entities/user.entity";
 
 @Entity()
 export class Manager {
-    @PrimaryGeneratedColumn('uuid')
+@PrimaryGeneratedColumn('uuid')
         managerId: string;
         @Column('text')
         managerFullNmame:string;
