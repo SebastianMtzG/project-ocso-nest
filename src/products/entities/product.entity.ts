@@ -20,6 +20,6 @@ export class Product {
     @JoinColumn({
         name: "providerId",
     })
-    provider: Provider
+    provider: Provider | string
 
 }
