@@ -36,9 +36,19 @@ export class EmployeesController {
 
 
   @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
+  @UseInterceptors(FileInterceptor("employeePhoto"))
+  async create(@Body() createEmployeeDto: CreateEmployeeDto, @UploadedFile() file: Express.Multer.File) {
+  if(!file){
     return this.employeesService.create(createEmployeeDto);
+
+  }else {
+    const photoUrl = await this.awsService.uploadFile(file)
+    createEmployeeDto.employeePhoto = photoUrl;
+
+    return this.employeesService.create(createEmployeeDto);
+
   }
+    }
 
   @Auth(ROLES.MANAGER, ROLES.EMPLOYEE)
 
@@ -77,10 +87,20 @@ export class EmployeesController {
     @Auth(ROLES.MANAGER, ROLES.EMPLOYEE)
 
   
-
+@UseInterceptors(FileInterceptor("employeePhoto"))
   @Patch(':id')
-  update ( @Param('id', new ParseUUIDPipe({version : '4'})) id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(id, updateEmployeeDto);
+  async update ( @Param('id', new ParseUUIDPipe({version : '4'})) id: string,
+   @Body() updateEmployeeDto: UpdateEmployeeDto, 
+  @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (file.originalname === "undefined") {
+      return this.employeesService.update(id, updateEmployeeDto);
+
+    } else {
+      const fileUrl = await this.awsService.uploadFile(file);
+      updateEmployeeDto.employeePhoto = fileUrl;
+      return this.employeesService.update(id, updateEmployeeDto);
+    }
   }
 
   @Auth(ROLES.MANAGER)

@@ -27,7 +27,11 @@ employeeEmail:string;
 
 @ApiPropertyOptional()
 @IsOptional()
-@IsObject()
+@IsString()
 location: Location;
+
+@ApiPropertyOptional()
+@IsOptional()
+employeePhoto: string
 }
 
