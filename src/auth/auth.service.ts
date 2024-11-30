@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
@@ -22,6 +22,12 @@ export class AuthService {
   ) {}
 
   async registerEmployee(id:string, createUserDto: CreateUserDto) {
+    const roles = createUserDto.userRoles
+    if (roles.includes("Admin") ||
+    roles.includes("Manager")
+      ) {
+    throw new BadRequestException("Invalid")
+    }
     createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
     const user = await this.userRepository.save(createUserDto);
    const employee = await this.employeeRepository.preload({
@@ -32,6 +38,12 @@ export class AuthService {
   }
 
   async registerManager(id:string, createUserDto: CreateUserDto) {
+    const roles = createUserDto.userRoles
+if (roles.includes("Admin") ||
+roles.includes("Employee")
+  ) {
+throw new BadRequestException("Invalid")
+}
     createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
     const user = await this.userRepository.save(createUserDto);
    const manager = await this.managerRepository.preload({
@@ -65,9 +77,10 @@ export class AuthService {
 
 
 }
-async updateUser(userEmail:string, UpdateUserDto:UpdateUserDto){
+async updateUser(id:string, UpdateUserDto:UpdateUserDto){
+ UpdateUserDto.userPassword =  bcrypt.hashSync(UpdateUserDto.userPassword, 5)
   const newUserData = await this.userRepository.preload({
-    userEmail,
+    userId: id,
     ...UpdateUserDto
   })
   this.userRepository.save(newUserData)

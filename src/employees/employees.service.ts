@@ -22,6 +22,7 @@ return employee
     return this.employeeRepository.find({
       relations: {
         location:true,
+        user: true,
       }
     });
   }
@@ -41,6 +42,7 @@ return employee
    },
    relations: {
     location: true,
+    user: true,
    }
    })
     return employee;
